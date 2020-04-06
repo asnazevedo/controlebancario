@@ -1,30 +1,30 @@
-package seleniumtraining;
+package seleniumtraining.test;
+import static seleniumtraining.core.DriverFactory.getDriver;
+import static seleniumtraining.core.DriverFactory.killDriver;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+
+import seleniumtraining.core.DSL;
+
 
 
 public class TestFramesAndWindows {
 	
-	private WebDriver driver;
 	private DSL dsl;
 
 	@Before
 	public void starting(){
-		driver = new ChromeDriver();
-		driver.manage().window().setSize(new Dimension(1200, 765));
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		dsl = new DSL(driver);
+		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		dsl = new DSL();
 	}
 	
 	@After
 	public void terminate(){
-		driver.quit();
+		killDriver();
 	}
 
 	@Test
@@ -51,7 +51,7 @@ public class TestFramesAndWindows {
 		dsl.clickButton("buttonPopUpEasy");
 		dsl.changeWindow("Popup");
 		dsl.write(By.tagName("textarea"), "Deu certo?");
-		driver.close();
+		getDriver().close();
 		dsl.changeWindow("");
 		dsl.write(By.tagName("textarea"), "e agora?");
 	}
@@ -59,11 +59,11 @@ public class TestFramesAndWindows {
 	@Test
 	public void testShouldInteractwithNoTileWindows(){
 		dsl.clickButton("buttonPopUpHard");
-		System.out.println(driver.getWindowHandle());
-		System.out.println(driver.getWindowHandles());
-		dsl.changeWindow((String) driver.getWindowHandles().toArray()[1]);
+		System.out.println(getDriver().getWindowHandle());
+		System.out.println(getDriver().getWindowHandles());
+		dsl.changeWindow((String) getDriver().getWindowHandles().toArray()[1]);
 		dsl.write(By.tagName("textarea"), "Deu certo?");
-		dsl.changeWindow((String) driver.getWindowHandles().toArray()[0]);
+		dsl.changeWindow((String) getDriver().getWindowHandles().toArray()[0]);
 		dsl.write(By.tagName("textarea"), "e agora?");
 	}
 	

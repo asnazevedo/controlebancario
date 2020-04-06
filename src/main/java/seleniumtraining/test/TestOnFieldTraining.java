@@ -1,7 +1,10 @@
-package seleniumtraining;
+package seleniumtraining.test;
 
 
 
+
+import static seleniumtraining.core.DriverFactory.getDriver;
+import static seleniumtraining.core.DriverFactory.killDriver;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,33 +15,30 @@ import org.junit.Before;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-
+import seleniumtraining.core.DSL;
+import seleniumtraining.page.TrainingFieldPage;
 
 
 
 public class TestOnFieldTraining {
 	
-	private WebDriver driver;
+
 	private DSL dsl;
 	private TrainingFieldPage page;
 
 	@Before
 	public void starting(){
-		driver = new ChromeDriver();
-		driver.manage().window().setSize(new Dimension(1200, 765));
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		dsl = new DSL(driver);
-		page = new TrainingFieldPage(driver);
+		
+		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		dsl = new DSL();
+		page = new TrainingFieldPage();
 	}
 	
 	@After
 	public void terminate(){
-		//driver.quit();
+		killDriver();
 	}
 	
 	@Test
@@ -119,7 +119,7 @@ public class TestOnFieldTraining {
 	
 	@Test
 	public void testJavaScript() {
-		WebElement element = driver.findElement(By.id("elementosForm:nome"));
+		WebElement element = getDriver().findElement(By.id("elementosForm:nome"));
 		dsl.executeJS("arguments[0].style.border = arguments[1]", element ,"solid 4px red");
 	}
 	

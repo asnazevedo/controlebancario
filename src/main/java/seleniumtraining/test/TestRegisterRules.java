@@ -1,4 +1,7 @@
-package seleniumtraining;
+package seleniumtraining.test;
+
+import static seleniumtraining.core.DriverFactory.getDriver;
+import static seleniumtraining.core.DriverFactory.killDriver;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -12,14 +15,17 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+
+import seleniumtraining.core.BaseTest;
+import seleniumtraining.core.DSL;
+import seleniumtraining.page.TrainingFieldPage;
+
+
 
 @RunWith(Parameterized.class)
-public class TestRegisterRules {
+public class TestRegisterRules extends BaseTest{
 
-	private WebDriver driver;
+
 	private DSL dsl;
 	private TrainingFieldPage page;
 	
@@ -38,16 +44,10 @@ public class TestRegisterRules {
 
 	@Before
 	public void starting(){
-		driver = new ChromeDriver();
-		driver.manage().window().setSize(new Dimension(1200, 765));
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		dsl = new DSL(driver);
-		page = new TrainingFieldPage(driver);
-	}
-	
-	@After
-	public void terminate(){
-		driver.quit();
+
+		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		dsl = new DSL();
+		page = new TrainingFieldPage();
 	}
 	
 	@Parameters

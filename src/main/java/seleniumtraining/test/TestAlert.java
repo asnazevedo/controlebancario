@@ -1,28 +1,28 @@
-package seleniumtraining;
+package seleniumtraining.test;
+import static seleniumtraining.core.DriverFactory.getDriver;
+import static seleniumtraining.core.DriverFactory.killDriver;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class TesteAlert {
+import seleniumtraining.core.DSL;
+
+
+public class TestAlert {
 	
-	private WebDriver driver;
 	private DSL dsl;
 	
 	@Before
 	public void starting(){
-		driver = new FirefoxDriver();
-		driver.manage().window().setSize(new Dimension(1200, 765));
-		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
-		dsl = new DSL(driver);
+		getDriver().get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		dsl = new DSL();
 	}
 	
 	@After
 	public void terminate(){
-		driver.quit();
+		killDriver();
 	}
 
 	@Test

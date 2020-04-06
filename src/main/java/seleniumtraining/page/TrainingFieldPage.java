@@ -1,17 +1,11 @@
-package seleniumtraining;
+package seleniumtraining.page;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
-public class TrainingFieldPage {
+import seleniumtraining.core.BasePage;
 
-	private DSL dsl;
-	
-	
-	public TrainingFieldPage(WebDriver driver) {
-		super();
-		this.dsl = new DSL(driver);
-	}
+public class TrainingFieldPage extends BasePage {
+
 
 
 	public void setName(String name) {
